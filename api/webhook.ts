@@ -42,7 +42,7 @@ const app = express();
 app.use(express.json());
 
 // exporta manipulador
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<any> {
   // cria credenciais
   const token = req.headers['x-vercel-token'];
   const tokenEsperado = 'secreto';
