@@ -1,4 +1,5 @@
 // importacoes
+import express from 'express';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // tipos
@@ -34,6 +35,11 @@ type PropsMensangens = {
 
 // variaveis globais
 let mensagemRecebida: RetMensagens;
+// constantes
+const app = express();
+
+//configura app p/ receber .json 
+app.use(express.json());
 
 // exporta manipulador
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -46,9 +52,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === 'POST') {
       // acoes p/ posts
       mensagemRecebida = req.body
-      const { text } = mensagemRecebida
       // retorno p/ quem chamou API
-      return res.status(200).json({ text });
+      return res.status(200).json({ mensagemRecebida });
     } else if (req.method === 'GET') {
       // GET
       return res.status(200).json({ mensagemRecebida });
@@ -58,6 +63,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   } else {
     return res.status(401).json({ error: 'Não autorizado!' });
-    return;
   }
 }
+
+// coloco o servidor p/ rodar
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
+});
