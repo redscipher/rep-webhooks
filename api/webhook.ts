@@ -46,27 +46,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // cria credenciais
   const token = req.headers['x-vercel-token'];
   const tokenEsperado = 'secreto';
-  // valida os tokens
-  if (token === tokenEsperado) {
-     // verifica tipo de requisicao: POST
-    if (req.method === 'POST') {
-      // acoes p/ posts
-      mensagemRecebida.push(req.body)
-      // retorno p/ quem chamou API
-      return res.status(200).json({ mensagemRecebida });
-    } else if (req.method === 'GET') {
-      // GET
-      return res.status(200).json({ mensagemRecebida });
-    } else {
-      // erro
-      return res.status(405).json({ message: 'Método não permitido' });
-    }
+  // verificacao 
+  if (req.method === 'POST') {
+    // acoes p/ posts
+    mensagemRecebida.push(req.body)
+    // retorno p/ quem chamou API
+    return res.status(200).json({ mensagemRecebida });
   } else {
-    return res.status(401).json({ error: 'Não autorizado!' });
+    // valida os tokens
+    if (token === tokenEsperado) {
+      // verifica tipo de requisicao: POST
+      if (req.method === 'GET') {
+        // GET
+        return res.status(200).json({ mensagemRecebida });
+      } else {
+        // erro
+        return res.status(405).json({ message: 'Método não permitido' });
+      }
+    } else {
+      // token incorreto
+      return res.status(401).json({ error: 'Não autorizado!' });
+    }
   }
 }
 
-// coloco o servidor p/ rodar
+// coloca o servidor p/ rodar
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
 });
