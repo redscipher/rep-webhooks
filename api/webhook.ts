@@ -1,9 +1,8 @@
 // importacoes
-// import type { NextApiRequest, NextApiResponse } from 'next';
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 // exporta manipulador
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // cria credenciais
   const token = req.headers['x-vercel-token'];
   const tokenEsperado = 'secreto';
