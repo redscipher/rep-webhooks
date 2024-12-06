@@ -1,7 +1,8 @@
+// importacoes
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  basePath: '/'
-};
+// arquivo
+const nextConfig: NextConfig = {};
 
+// exportacoes
 export default nextConfig;
