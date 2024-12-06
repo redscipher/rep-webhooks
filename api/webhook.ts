@@ -12,11 +12,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === 'POST') {
       // acoes p/ posts
       console.log('Dados recebidos do Webhook POST:' + req.body);
-      res.status(200).json({ message: `Webhook recebido com sucesso! ${req.body}` });
+      res.status(200).json({ message: `Webhook recebido com sucesso!` });
     } else if (req.method === 'GET') {
       // GET
       console.log('Consultando dados do Webhook GET:' + req.query);
-      res.status(200).json({ message: `Webhook recebido com sucesso! ${req.query}` });
+      res.status(200).json({ message: `Webhook recebido com sucesso!` });
     } else {
       // erro
       res.status(405).json({ message: 'Método não permitido' });
