@@ -1,6 +1,40 @@
 // importacoes
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+// tipos
+type RetMensagens = {
+  isStatusReply: boolean,
+  chatLid: string,
+  connectedPhone: string,
+  waitingMessage: boolean,
+  isEdit: boolean,
+  isGroup: boolean,
+  isNewsletter: boolean,
+  instanceId: string,
+  messageId: string,
+  phone: string,
+  fromMe: boolean,
+  momment: string,
+  status: string,
+  chatName: string,
+  senderPhoto: string,
+  senderName: string,
+  photo: string,
+  broadcast: boolean,
+  participantId: string,
+  forwarded: boolean,
+  type: string,
+  fromApi: boolean,
+  text: PropsMensangens
+}
+
+type PropsMensangens = {
+  message: string
+}
+
+// variaveis globais
+let mensagemRecebida: RetMensagens;
+
 // exporta manipulador
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // cria credenciais
@@ -11,16 +45,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
      // verifica tipo de requisicao: POST
     if (req.method === 'POST') {
       // acoes p/ posts
-      res.status(200).json({ message: `Webhook recebido com sucesso POST! ${req.body}` });
+      mensagemRecebida = req.body
+      const { text } = mensagemRecebida
+      // retorno p/ quem chamou API
+      return res.status(200).json({ text });
     } else if (req.method === 'GET') {
       // GET
-      res.status(200).json({ message: `Webhook recebido com sucesso GET!` });
+      return res.status(200).json({ mensagemRecebida });
     } else {
       // erro
-      res.status(405).json({ message: 'Método não permitido' });
+      return res.status(405).json({ message: 'Método não permitido' });
     }
   } else {
-    res.status(401).json({ error: 'Não autorizado.' });
+    return res.status(401).json({ error: 'Não autorizado!' });
     return;
   }
 }
