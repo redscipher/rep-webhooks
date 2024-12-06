@@ -34,7 +34,7 @@ type PropsMensangens = {
 }
 
 // variaveis globais
-let mensagemRecebida: RetMensagens;
+let mensagemRecebida: RetMensagens[];
 // constantes
 const app = express();
 
@@ -47,11 +47,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const token = req.headers['x-vercel-token'];
   const tokenEsperado = 'secreto';
   // valida os tokens
-  if (true) {
+  if (token === tokenEsperado) {
      // verifica tipo de requisicao: POST
     if (req.method === 'POST') {
       // acoes p/ posts
-      mensagemRecebida = req.body
+      mensagemRecebida.push(req.body)
       // retorno p/ quem chamou API
       return res.status(200).json({ mensagemRecebida });
     } else if (req.method === 'GET') {
