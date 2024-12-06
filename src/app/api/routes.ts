@@ -1,8 +1,9 @@
 // importacoes
-import type { NextApiRequest, NextApiResponse } from 'next';
+// import type { NextApiRequest, NextApiResponse } from 'next';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 // exporta manipulador
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   // cria credenciais
   const token = req.headers['x-vercel-token'];
   const tokenEsperado = 'secreto';
@@ -15,7 +16,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
       res.status(200).json({ message: 'Webhook recebido com sucesso!' });
     } else if (req.method === 'GET') {
       // GET
-      console.log('Consultando dados do Webhook');
+      console.log('Consultando dados do Webhook:', req.query);
       res.status(200).json({ message: 'Webhook recebido com sucesso!' });
     } else {
       // erro
@@ -26,6 +27,3 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 }
-
-// exportacao
-export default handler
