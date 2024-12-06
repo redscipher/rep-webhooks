@@ -34,7 +34,7 @@ type PropsMensangens = {
 }
 
 // variaveis globais
-let mensagemRecebida: RetMensagens[];
+let mensagemRecebida: RetMensagens[] = [];
 // constantes
 const app = express();
 
