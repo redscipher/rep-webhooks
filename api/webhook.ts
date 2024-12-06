@@ -11,11 +11,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
      // verifica tipo de requisicao: POST
     if (req.method === 'POST') {
       // acoes p/ posts
-      console.log('Dados recebidos do Webhook POST:' + req.body);
+      console.log('Dados recebidos do Webhook POST:');
       res.status(200).json({ message: `Webhook recebido com sucesso!` });
     } else if (req.method === 'GET') {
       // GET
-      console.log('Consultando dados do Webhook GET:' + req.query);
+      console.log('Consultando dados do Webhook GET:');
       res.status(200).json({ message: `Webhook recebido com sucesso!` });
     } else {
       // erro
