@@ -2,8 +2,8 @@
     "version": 2,
     "routes": [
         {
-            "src": "/pages/api/webhook",
-            "dest": "/pages/api/webhook"
+            "src": "/api/webhook",
+            "dest": "/api/webhook"
         }
     ]
 }
